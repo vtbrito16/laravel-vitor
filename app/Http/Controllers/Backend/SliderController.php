@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -29,7 +30,27 @@ return view('admin.slider.create');
  */
 public function store(Request $request)
 {
-//
+//dd($request->all());
+$request->validate([
+//'banner' => ['required', 'image', 'max:2048'],
+'title_one' => ['required', 'max:200'],
+'title_two' => ['required', 'max:200'],
+'starting_price' => ['max:200'],
+'link' => ['url'],
+'serial' => ['required', 'integer'],
+'status' => ['required'],
+]);
+$slider = new Slider();
+$slider->title_one = $request->title_one;
+$slider->title_two = $request->title_two;
+$slider->starting_price = $request->starting_price;
+$slider->link = $request->link;
+$slider->serial = $request->serial;
+$slider->status = $request->status;
+$slider->save();
+
+toastr()->success('Slider criado com sucesso!');
+return redirect()->back();
 }
 
 /**
@@ -64,3 +85,4 @@ public function destroy(string $id)
 //
 }
 }
+
