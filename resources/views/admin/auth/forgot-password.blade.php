@@ -40,7 +40,7 @@
             <div class="card card-primary"  style="border:none; background:#270432; color: #fff;" >
             <div class="card-header"><h4>Recuperar Senha</h4></div>
              <br>
-             @if (session('status'))
+               @if (session('status'))
                <p class="alert alert-warning">
                  uma mensagem de recuperação de senha foi enviada para o e-mail informado.
                </p>
@@ -52,11 +52,14 @@
                 <div class="form-group">
 
                     <input id="email" type="email" class="form-control" name="email" placeholder="E-mail de Acesso" tabindex="1" value="{{old('email') }}" required autofocus>
-                    @if($errors->get('email'))
-                    <code>{{ $errors-first('email') }}</code>
+                    @if($errors->has('email'))
+                    @error('email')
+                      <code>{{ $message }}</code>
+                    @enderror
                     @endif
-                  </div>
 
+                </div>
+                     
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 20px; background: #f3d300; color: #000;" tabindex="4">
                       Recuperar
