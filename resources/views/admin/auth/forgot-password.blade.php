@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -16,16 +15,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('backend/assets/css/components.css') }}">
-<!-- Start GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-94034622-3');
-</script>
-<!-- /END GA --></head>
+</head>
 
 <body style="background:#410454;">
   <div id="app">
@@ -37,43 +27,33 @@
               <img src="{{asset('backend/assets/img/logovtbrito.png') }}" alt="vtbrito - marketplace" width="100" class="shadow-light" style="width: 100%; height: auto; box-shadow:none; border:none;">
             </div>
 
-            <div class="card card-primary"  style="border:none; background:#270432; color: #fff;" >
-            <div class="card-header"><h4>Recuperar Senha</h4></div>
-             <br>
-               @if (session('status'))
-               <p class="alert alert-warning">
-                 uma mensagem de recuperação de senha foi enviada para o e-mail informado.
-               </p>
-               @endif
+            <div class="card card-primary" style="border:none; background:#270432; color: #fff;">
+              <div class="card-header"><h4>Recuperar Senha</h4></div>
+              <br>
 
               <div class="card-body">
-                <form  action="{{ route('password.email') }}" class="needs-validation"  method="post" novalidate="">
-                @csrf
-                <div class="form-group">
+                <form action="{{ route('password.email') }}" class="needs-validation" method="post" novalidate="">
+                  @csrf
 
-                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail de Acesso" tabindex="1" value="{{old('email') }}" required autofocus>
-                    @if($errors->has('email'))
-                    @error('email')
-                      <code>{{ $message }}</code>
-                    @enderror
-                    @endif
+                  <div class="form-group">
+                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail de Acesso" tabindex="1" value="{{ old('email') }}" required autofocus>
+                  </div>
 
-                </div>
-                     
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="font-size: 20px; background: #f3d300; color: #000;" tabindex="4">
                       Recuperar
                     </button>
                   </div>
-                    <p style="text-align:center;">
-                    <a href="{{ route('admin.login') }}" title="voltar para login" style="color:#fff">Voltar para Login</a>
-                    </p>
-                </form>
 
+                  <p style="text-align:center;">
+                    <a href="{{ route('admin.login') }}" title="voltar para login" style="color:#fff">Voltar para Login</a>
+                  </p>
+                </form>
               </div>
             </div>
+
             <div class="mt-5 text-muted text-center" style="color: #fff;">
-             Criado por <a href="https://vtbrito.com.br/" style="color: #fff;">Vitor Daniel</a>
+              Criado por <a href="https://vtbrito.com.br/" style="color: #fff;">Vitor Daniel</a>
             </div>
             <div class="simple-footer" style="color: #fff;">
               Todos os Direitos Reservados &copy; <?= date('d/m/y')?> vtbrito.com.br
@@ -84,6 +64,30 @@
     </section>
   </div>
 
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Alertas -->
+  <script>
+    @if (session('status'))
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso',
+        text: 'Uma mensagem de recuperação foi enviada para seu e-mail.',
+        confirmButtonColor: '#3085d6'
+      });
+    @endif
+
+    @if ($errors->has('email'))
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: '{{ $errors->first('email') }}',
+        confirmButtonColor: '#d33'
+      });
+    @endif
+  </script>
+
   <!-- General JS Scripts -->
   <script src="{{asset('backend/assets/modules/jquery.min.js') }}"></script>
   <script src="{{asset('backend/assets/modules/popper.js') }}"></script>
@@ -92,12 +96,6 @@
   <script src="{{asset('backend/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{asset('backend/assets/modules/moment.min.js') }}"></script>
   <script src="{{asset('backend/assets/js/stisla.js') }}"></script>
-
-  <!-- JS Libraies -->
-
-  <!-- Page Specific JS File -->
-
-  <!-- Template JS File -->
   <script src="{{asset('backend/assets/js/scripts.js') }}"></script>
   <script src="{{asset('backend/assets/js/custom.js') }}"></script>
 </body>
