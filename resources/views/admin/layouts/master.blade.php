@@ -15,6 +15,10 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
 
+<!-- CSS DATATABE-->
+<link rel="stylesheet" href="//cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+
 <!-- CSS Tosttr -->
 <link rel="stylesheet" href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css') }}">
 <link rel="stylesheet" href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css') }}">
@@ -85,6 +89,10 @@ Todos os Direitos Reservados &copy; <?= date('d/m/y') ?> <div class="bullet"></d
 <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
 <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
+<!-- JS DATABASE -->
+<script src="//cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+
 <!-- JS Tosttr -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -101,5 +109,7 @@ toastr.error("{{$error}}");
 @endforeach
 @endif
 </script>
+
+@stack('scripts')
 </body>
 </html>
