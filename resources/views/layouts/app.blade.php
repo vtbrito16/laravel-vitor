@@ -1,36 +1,93 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@push('styles')
+<style>
+  /* NAVBAR ESTILO MODERNO */
+  .navbar {
+    background-color: #343a40 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+  .navbar .nav-link {
+    color: #ffffff !important;
+    transition: 0.3s ease;
+  }
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  .navbar .nav-link:hover,
+  .navbar .nav-link:focus {
+    color: #00d1b2 !important;
+  }
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+  /* ESTILO DO USUÁRIO */
+  .nav-link-user img {
+    border: 2px solid #00d1b2;
+    box-shadow: 0 0 5px rgba(0, 209, 178, 0.5);
+  }
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+  .nav-link-user div {
+    color: #ffffff;
+    font-weight: 500;
+  }
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
-</html>
+  /* DROPDOWN BONITO */
+  .dropdown-menu {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* SIDEBAR UNIFICADA */
+  .main-sidebar {
+    background-color: #2d2f44 !important;
+  }
+
+  .sidebar-brand,
+  .sidebar-brand-sm {
+    background-color: #4e54c8;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 1rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-brand a,
+  .sidebar-brand-sm a {
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  /* MENUS */
+  .sidebar-menu .menu-header {
+    color: #aab2c9;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .sidebar-menu li a {
+    color: #cdd3e0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .sidebar-menu li a:hover {
+    background-color: #4e54c8;
+    color: #ffffff;
+  }
+
+  .sidebar-menu li.active > a,
+  .sidebar-menu li.active > a:hover {
+    background-color: #4e54c8;
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .sidebar-menu i {
+    margin-right: 10px;
+    min-width: 20px;
+    text-align: center;
+  }
+</style>
+@endpush

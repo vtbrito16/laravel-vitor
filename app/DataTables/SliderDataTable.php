@@ -23,10 +23,11 @@ public function dataTable(QueryBuilder $query): EloquentDataTable
 {
 return (new EloquentDataTable($query))
 ->addColumn('action', function($query){
-$edit = "<a href='".route('Slider.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-$delete = "<a href='".route('Slider.destroy', $query->id)."' class='btn btn-danger ml-2'><i class='far fa-trash-alt'></i></a>";
-return $edit . $delete;
+    $edit = "<a href='" . route('Slider.edit', $query->id) . "' class='btn btn-primary btn-sm'><i class='far fa-edit'></i></a>";
 
+    $delete = "<button class='btn btn-danger btn-sm delete-item' data-url='" . route('Slider.destroy', $query->id) . "'><i class='far fa-trash-alt'></i></button>";
+
+    return $edit . ' ' . $delete;
 })
 ->addColumn('banner', function($query){
 return $img = "<img src='".asset($query->banner)."'style='width:100%; height:auto;'>";
