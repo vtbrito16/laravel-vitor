@@ -29,10 +29,19 @@ return (new EloquentDataTable($query))
 
     return $edit . ' ' . $delete;
 })
+->addColumn('status', function($query){
+$ativo= '<i class="badge badge-success">Ativo</i>';
+$cancelado= '<i class="badge badge-danger">Inativo</i>';
+if($query->status == 1){
+return $ativo;
+}else{
+return $cancelado;
+}})
+
 ->addColumn('banner', function($query){
 return $img = "<img src='".asset($query->banner)."'style='width:100%; height:auto;'>";
 })
-->rawColumns(['banner', 'action'])
+->rawColumns(['banner', 'action', 'editar', 'status'])
 ->setRowId('id');
 
 }
@@ -88,6 +97,10 @@ Column::make('banner')
 Column::make('title_one')
 ->title('Título 1')
 ->width(150), // título um pouco maior
+
+Column::make('status')
+->title('status')
+->width(30), // status pequeno
 
 Column::computed('action')
 ->title('Ações')
