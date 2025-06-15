@@ -65,7 +65,17 @@ return redirect()->route('categoria.index');
 
 public function destroy(string $id)
 {
-
+$categoria = Categoria::findOrFail($id);
+$categoria->delete();
+return response(['status' => 'success', 'message' => 'Categoria excluída com sucesso!']);
+}
+public function mudaStatus(Request $request)
+{
+$categoria = Categoria::findOrFail($request->id);
+$categoria->status = $request->status == 'true' ? 1 : 0;
+$categoria->save();
+return response(['message' => 'Status atualizado com sucesso!']);
+}
 }
 
-}
+

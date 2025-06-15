@@ -23,11 +23,22 @@ return (new EloquentDataTable($query))
 ->addColumn('icone', function ($query) {
 return '<i class="' . e($query->icone) . '"></i>';
 })
-->addColumn('status', function ($query) {
-return $query->status
-? '<span class="badge badge-success">Ativo</span>'
-: '<span class="badge badge-danger">Cancelado</span>';
+->addColumn('status', function ($query){
+if($query->status == 1){
+$botao = '<label class="custom-switch mt-2">
+<input type="checkbox" checked name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input muda-status">
+<span class="custom-switch-indicator"></span>
+</label>';
+}else{
+$botao = '<label class="custom-switch mt-2">
+<input type="checkbox" name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input muda-status">
+<span class="custom-switch-indicator"></span>
+</label>';
+}
+return $botao;
+
 })
+
 ->addColumn('editar', function ($query) {
 $editar = "<a href='" . route('categoria.edit', $query->id) . "' class='btn btn-sm btn-primary'><i class='far fa-edit'></i></a>";
 $excluir = "<button class='btn btn-sm btn-danger delete-item' data-url='" . route('categoria.destroy', $query->id) . "'><i class='far fa-trash-alt'></i></button>";

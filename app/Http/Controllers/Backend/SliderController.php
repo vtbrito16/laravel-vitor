@@ -118,4 +118,5 @@ $this->deleteImage($slider->banner);
 
 $slider->delete();
 return response(['status' => 'success', 'message' => 'Slider deletado com sucesso!']);
-}}
+}
+}

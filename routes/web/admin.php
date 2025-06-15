@@ -30,7 +30,9 @@ Route::post('admin/profile/update/password', [ProfileController::class, 'updateP
 Route::resource('admin/Slider', SliderController::class)
 ->middleware(['auth', 'admin']);
 
+// rota 'mudastatus//
+Route::put('muda-status',[CategoriaController::class, 'mudaStatus'])->name('categoria.muda-status');
 
-// rota Slider destaque//
+// rota admin categoria//
 Route::resource('admin/categoria',CategoriaController::class)
 ->middleware(['auth', 'admin']);

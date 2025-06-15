@@ -92,6 +92,11 @@ Column::make('id')
 ->width(30) // ID bem estreito
 ->addClass('text-center'),
 
+Column::make('serial')
+->title('Ordem')
+->width(30) // serial pequeno
+->addClass('text-center'),
+
 Column::make('banner')
 ->title('Imagem')
 ->width(80), // imagem pequena
@@ -100,14 +105,9 @@ Column::make('title_one')
 ->title('Título 1')
 ->width(150), // título um pouco maior
 
-
 Column::make('status')
 ->title('Status')
 ->width(30), // status pequeno
-
-Column::make('serial')
-->title('Serial')
-->width(30), // serial pequeno
 
 Column::computed('action')
 ->title('Ações')
