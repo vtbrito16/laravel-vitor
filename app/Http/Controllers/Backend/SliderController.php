@@ -10,14 +10,15 @@ use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-//envio de imagem vtbshop
+// Envio de imagem
 use UploadImageTrait;
+
 /**
  * Display a listing of the resource.
  */
 public function index(SliderDataTable $dataTable)
 {
-//return view('admin.slider.index');
+
 return $dataTable->render('admin.slider.index');
 }
 
@@ -34,39 +35,29 @@ return view('admin.slider.create');
  */
 public function store(Request $request)
 {
-    $request->validate([
-        'banner' => ['required', 'image', 'max:2048'],
-        'title_one' => ['required', 'max:200'],
-        'title_two' => ['required', 'max:200'],
-        'starting_price' => ['max:200'],
-        'link' => ['url'],
-        'serial' => ['required', 'integer'],
-        'status' => ['required'],
-    ]);
+$request->validate([
+'banner' => ['required', 'image', 'max:2048'],
+'title_one' => ['required', 'max:200'],
+'title_two' => ['required', 'max:200'],
+'starting_price' => ['max:200'],
+'link' => ['url'],
+'serial' => ['required', 'integer'],
+'status' => ['required'],
+]);
 
-    $slider = new Slider();
-    $imagePath = $this->uploadImage($request, 'banner', 'uploads');
+$slider = new Slider();
+$imagePath = $this->uploadImage($request, 'banner', 'uploads');
 
-    $slider->banner = $imagePath;
-    $slider->title_one = $request->title_one;
-    $slider->title_two = $request->title_two;
-    $slider->starting_price = $request->starting_price;
-    $slider->link = $request->link;
-    $slider->serial = $request->serial;
-    $slider->status = $request->status;
-    $slider->save();
+$slider->banner = $imagePath;
+$slider->title_one = $request->title_one;
+$slider->title_two = $request->title_two;
+$slider->starting_price = $request->starting_price;
+$slider->link = $request->link;
+$slider->serial = $request->serial;
+$slider->status = $request->status;
+$slider->save();
 
-    return redirect()->route('Slider.index')->with('success', 'Slider criado com sucesso!');
-}
-
-/**
- * Display the specified resource.
- */
-public function show(string $id)
-{
-//
-}
-
+return redirect()->route('Slider.index')->with('success', 'Slider criado com sucesso!');}
 /**
  * Show the form for editing the specified resource.
  */
@@ -80,9 +71,8 @@ return view('admin.slider.edit', compact('slider'));
 /**
  * Update the specified resource in storage.
  */
-public function update(Request $request, string $id)
-{
-//dd($request->all());
+public function update(Request $request, string $id){
+
 $request->validate([
 'banner' => ['nullable', 'image', 'max:2048'],
 'title_one' => ['required', 'max:200'],
@@ -92,11 +82,18 @@ $request->validate([
 'serial' => ['required', 'integer'],
 'status' => ['required'],
 ]);
-$slider = Slider:: findOrFail($id);
 
-$imagePath = $this->updateImage($request, 'banner', 'uploads', $slider->banner);
+$slider = Slider::findOrFail($id);
 
-$slider->banner =empty(!$imagePath) ? $imagePath : $slider->banner;
+// Exclui imagem antiga se houver nova imagem
+if ($request->hasFile('banner')) {
+if ($slider->banner && file_exists(public_path($slider->banner))) {
+unlink(public_path($slider->banner));
+}
+$imagePath = $this->uploadImage($request, 'banner', 'uploads');
+$slider->banner = $imagePath;
+}
+
 $slider->title_one = $request->title_one;
 $slider->title_two = $request->title_two;
 $slider->starting_price = $request->starting_price;
@@ -115,10 +112,10 @@ return redirect()->route('Slider.index');
 public function destroy(string $id)
 {
 $slider = Slider::findOrFail($id);
+
+// Exclui imagem do disco
 $this->deleteImage($slider->banner);
+
 $slider->delete();
- return response(['status' => 'success', 'message' => 'Slider deletado com sucesso!']);
-}
-}
-
-
+return response(['status' => 'success', 'message' => 'Slider deletado com sucesso!']);
+}}

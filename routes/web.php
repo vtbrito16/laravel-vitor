@@ -22,5 +22,6 @@ Route::get('admin/login',[AdminController::class, 'login'])->name('admin.login')
 //Rota Admin recuperar senha
 Route::get('admin/forgot-password',[AdminController::class, 'forgot'])->name('admin.forgot');
 
+//rota slider destroy
 Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('Slider.destroy');
 

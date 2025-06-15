@@ -23,9 +23,9 @@ public function dataTable(QueryBuilder $query): EloquentDataTable
 {
 return (new EloquentDataTable($query))
 ->addColumn('action', function($query){
-    $edit = "<a href='" . route('Slider.edit', $query->id) . "' class='btn btn-primary btn-sm'><i class='far fa-edit'></i></a>";
+    $edit = "<a href='" . route('Slider.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
 
-    $delete = "<button class='btn btn-danger btn-sm delete-item' data-url='" . route('Slider.destroy', $query->id) . "'><i class='far fa-trash-alt'></i></button>";
+    $delete = "<button class='btn btn-danger delete-item ms-2' data-url='" . route('Slider.destroy', $query->id) . "'><i class='far fa-trash-alt'></i></button>";
 
     return $edit . ' ' . $delete;
 })
@@ -37,7 +37,9 @@ return $ativo;
 }else{
 return $cancelado;
 }})
-
+->addColumn('serial', function($query){
+    return $query->serial;
+})
 ->addColumn('banner', function($query){
 return $img = "<img src='".asset($query->banner)."'style='width:100%; height:auto;'>";
 })
@@ -98,15 +100,20 @@ Column::make('title_one')
 ->title('Título 1')
 ->width(150), // título um pouco maior
 
+
 Column::make('status')
-->title('status')
+->title('Status')
 ->width(30), // status pequeno
+
+Column::make('serial')
+->title('Serial')
+->width(30), // serial pequeno
 
 Column::computed('action')
 ->title('Ações')
 ->exportable(false)
 ->printable(false)
-->width(70) // largura dos botões
+->width(80) // largura dos botões
 ->addClass('text-center'),
 ];
 }
